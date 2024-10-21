@@ -11,11 +11,22 @@ export default {
 </script>
 <template>
     <div class="restaurant-card" v-for="(restaurant, i) in restaurants" :key="i">
+        <h2 class="band-text">{{restaurant.restaurant_name}}</h2>
         <div class="image-container">
             <img v-if="restaurant.img !== 'http://127.0.0.1:8000/storage/0'" :src="restaurant.img" :alt="restaurant.restaurant_name" class="restaurant-image" />
             <img v-else src="../../../public/ristorante.jpg" :alt="restaurant.restaurant_name" class="restaurant-image" />
+            
             <div class="band">
-                <h2 class="band-text">{{restaurant.restaurant_name}}</h2>
+
+                <!-- container nome e tipologie -->
+                <div class="container-info-first">
+                    <!-- nome del ristorante -->
+
+                    <!-- Tipologia di ristorante -->
+                    <div>
+                        <span v-for="type in restaurant.types">{{type.name}}</span>
+                    </div>
+                </div>
                 <p class="addres-restaurant"><strong>{{restaurant.address}}</strong></p>
                 <p class="description-restaurant">{{ restaurant.description }} </p>
                 <br>
@@ -40,6 +51,10 @@ export default {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 20px;
+    background-color: $text_color;
+    .band-text{
+        color:$yellow;
+    }
     
     .image-container {
         position: relative;
@@ -59,6 +74,26 @@ export default {
             right: 0%;
             transition: top 1s, opacity 1s;
             border-radius: 10px;
+
+            .container-info-first{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                div{
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 40%;
+                    row-gap: 3px;
+                    span{
+                        font-size: 10px;
+                        background-color: $yellow;
+                        border-radius: 50px;
+                        padding: 5px 10px;
+                        margin-right:5px; 
+                    }
+                }
+            }
 
             /*l'indirizzo e descrizione inizialmente nascosti */
             .addres-restaurant, .description-restaurant, button {
