@@ -11,6 +11,9 @@ export default {
 </script>
 <template>
     <div class="restaurant-card" v-for="(restaurant, i) in restaurants" :key="i">
+        <p v-for="types in restaurant.types">
+            {{ types.name }}
+        </p>
         <div class="image-container">
             <img v-if="restaurant.img !== 'http://127.0.0.1:8000/storage/0'" :src="restaurant.img" :alt="restaurant.restaurant_name" class="restaurant-image" />
             <img v-else src="../../../public/ristorante.jpg" :alt="restaurant.restaurant_name" class="restaurant-image" />
