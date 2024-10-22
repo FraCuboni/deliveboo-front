@@ -69,8 +69,16 @@ export default{
             
             product.quantity ++;
             this.totalPrice += parseFloat(product.price);
-            this.totalPrice = parseFloat(this.totalPrice.toFixed(2)); // Aggiungi il prezzo del nuovo prodotto al totale
+            this.totalPrice = parseFloat(this.totalPrice.toFixed(2));
+            saveCartToLocalStorage();
+             // Aggiungi il prezzo del nuovo prodotto al totale
         },
+        saveCartToLocalStorage() {
+            const cartData = {
+                cartproduct: this.cartproduct,
+                totalPrice: this.totalPrice
+            }
+        }
     }, 
 
     mounted(){
