@@ -79,6 +79,7 @@ export default{
             // Salva il carrello nel localStorage
             this.saveCartToLocalStorage();
         },
+
         saveCartToLocalStorage() {
             const cartData = {
                 cartproduct: this.cartproduct,
@@ -86,6 +87,7 @@ export default{
             };
         localStorage.setItem('cart', JSON.stringify(cartData)); // Converte l'oggetto in JSON e lo salva nel localStorage
         },
+
         // Metodo per recuperare il carrello dal localStorage
         loadCartFromLocalStorage() {
             const savedCart = localStorage.getItem('cart');
@@ -101,7 +103,8 @@ export default{
             this.totalPrice = 0;
             localStorage.removeItem('cart'); // Rimuove il carrello dal localStorage
         },
-        /* handlePopState(event) {
+        
+        handlePopState(event) {
             const user_confirmed = window.confirm('Il carrello verrà cancellato, continuare?');
             if(user_confirmed){
                 // Pulizia di sessionStorage o localStorage
@@ -109,7 +112,7 @@ export default{
             }else{
                 window.history.pushState(null, null, window.location.href);
             }
-        } */
+        }
         
     }, 
     mounted(){
@@ -118,13 +121,13 @@ export default{
         this.getRestaurant(slug);
         this.getProducts(slug);
         this.loadCartFromLocalStorage();
-        this.deleteCart();
-        /* window.addEventListener('popstate', this.handlePopState); */
+        // this.deleteCart();
+        window.addEventListener('popstate', this.handlePopState);
     },
-    /* beforeDestroy() {
+    beforeDestroy() {
         // Rimuovi l'event listener quando il componente viene distrutto
         window.removeEventListener('popstate', this.handlePopState);
-    }  */
+    }
 }
 </script>
 
