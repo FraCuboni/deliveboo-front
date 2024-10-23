@@ -15,19 +15,44 @@ export default {
         increaseQuantity(product) {
            this.$emit('add-to-cart', product);
         },
+
         decreaseQuantity(product) {
             //1 perchè nel momento in cui vedo 1 al click parte il primo if
             if(product.quantity >= 1){
                 this.$emit('delete-item', product);
             }
         },
+
         initializeQuantity() {
-            this.products.forEach(product => {
-                if (typeof product.quantity !== 'number') {
-                    // Inizializzo quantity
-                    product.quantity = 0; 
-                }
-            });
+            const savedCart = localStorage.getItem('cart');
+            console.log(savedCart);
+            
+            if (savedCart) {
+                const cartData = JSON.parse(savedCart);
+                console.log('dati parsati:', cartData);
+                const cartproduct = cartData.cartproduct || [];
+                console.log(cartproduct);
+                
+                cartproduct.forEach(product => {
+                    const cartItem = cartproduct.find(item => item.id === product.id);
+                    console.log('cartItem:', cartItem);
+                    console.log('cartItem quantità:', cartItem.quantity);
+                    if(cartItem.quantity > 0){
+                        this.product.quantity = cartItem.quantity;
+                    } else {
+                        this.product.quantity = 0;
+                    }
+                });
+            } else {
+                
+                this.products.forEach(product => {
+                    if (typeof product.quantity !== 'number') {
+                        // Inizializzo quantity
+                        product.quantity = 0; 
+                    }
+                });
+            }
+
         },
     },
     mounted(){
